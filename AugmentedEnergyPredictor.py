@@ -223,7 +223,7 @@ class AugmentedEnergyPrediction:
         prediction.columns = ['Hours', 'Energy Consumption']
 
         title = f"DAILY CONSUMPTION FORECAST: {day}. Consumption group: {self.consumption_group}"
-        fig = px.scatter(prediction, x="Hours", y="Energy Consumption",
+        fig = px.bar(prediction, x="Hours", y="Energy Consumption",
                      color="Energy Consumption",
                      height=500, width=700,
                      title=title,
@@ -236,7 +236,4 @@ class AugmentedEnergyPrediction:
 
 
 
-#%%
-a = AugmentedEnergyPrediction(consumption_group="BASE")
-a.plot_year_prediction()
 #%%
