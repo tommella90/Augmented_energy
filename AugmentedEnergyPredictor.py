@@ -191,19 +191,24 @@ class AugmentedEnergyPrediction:
 
         all_data = pd.concat([past, prediction], axis=0)
         all_data.index = pd.to_datetime(all_data.index)
+        ##%
         all_data = all_data.sample(n=6000, random_state=42)
         all_data['Color']= all_data['Time'].apply(lambda x: 'blue' if (x == "Past") else 'green')
 
-        all_data.columns = ['Energy consumption', 'Time', 'Color']
+        all_data.columns = ['Energy Consumption', 'Time', 'Color']
 
-        title = f"ENERGY CONSUMPTION FORECAST, 2022-10-31 - 2023-10-30. Consumption group"
+        title = f"Yearly Consumption prediction for {self.consumption_group} group"
 
-        import seaborn as sns
-        fig, ax = plt.subplots(figsize=(15,5))
+        fig = px.scatter(all_data, x=all_data.index, y="Energy Consumption",
+                         color="Time",
+                         height=500, width=1200,
+                         title=title,
+                         labels=['Days', 'Energy Consumption'])
 
-        sns.scatterplot(all_data, x=all_data.index, y="Energy consumption")
-        plt.title(title)
+        fig.update_xaxes(tickmode = 'array',
+                         tickvals = list(range(0,24)))
         fig.show()
+
 
 
     def plot_day_prediction(self, day):
@@ -218,7 +223,7 @@ class AugmentedEnergyPrediction:
         prediction.columns = ['Hours', 'Energy Consumption']
 
         title = f"DAILY CONSUMPTION FORECAST: {day}. Consumption group: {self.consumption_group}"
-        fig = px.bar(prediction, x="Hours", y="Energy Consumption",
+        fig = px.scatter(prediction, x="Hours", y="Energy Consumption",
                      color="Energy Consumption",
                      height=500, width=700,
                      title=title,
@@ -230,17 +235,8 @@ class AugmentedEnergyPrediction:
         fig.show()
 
 
-"""
-fig = px.scatter(all_data, x=all_data.index, y="Energy consumption",
-                         color_discrete_sequence=["limegreen", "darkgreen"],
-                         color="Time",
-                         title=title)
-        fig.update_traces(marker_size=6)
-        fig.update_layout(
-            xaxis_tickformat = '%Y'
-        )
 
-        fig.show()
-"""
-
+#%%
+a = AugmentedEnergyPrediction(consumption_group="BASE")
+a.plot_year_prediction()
 #%%

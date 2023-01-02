@@ -3,6 +3,7 @@
 Hello Eric, here are my solutions to the task, and a brief explenation.
 
 First way, you can simply run a little demo I put in the docker file (here). It returns a daily prediction (up to 1 year), giving the predicted consumption per each hour. 
+https://hub.docker.com/repository/docker/tommella90/ramella_augmented
 (I'm not very expert with Docker, so in case it doesnt' work you can check the Git repo)
 
 In the Github repository you can file the folliwing files that I used to prepare the data and train a model: 
